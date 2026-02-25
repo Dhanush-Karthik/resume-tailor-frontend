@@ -1,5 +1,6 @@
 name: Manual Frontend Build and Deploy
 
+# Works
 on:
   workflow_dispatch:
     inputs:
