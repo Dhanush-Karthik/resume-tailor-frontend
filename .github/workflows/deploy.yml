@@ -43,10 +43,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # 3. DEPLOY STEP
+      # 3. DEPLOY STEP
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
         with:
           publish-dir: './dist'
           production-deploy: true
-          netli-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           site-id: ${{ secrets.NETLIFY_SITE_ID }}
