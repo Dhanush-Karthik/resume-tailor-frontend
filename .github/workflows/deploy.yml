@@ -1,6 +1,5 @@
 name: Manual Frontend Build and Deploy
 
-# Works
 on:
   workflow_dispatch:
     inputs:
@@ -27,6 +26,9 @@ jobs:
         run: |
           npm install
           npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_APP_VERSION: ${{ github.event.inputs.version }}
 
       - name: Push Git Tag
         run: |

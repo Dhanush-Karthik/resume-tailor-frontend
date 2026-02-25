@@ -5,10 +5,12 @@ import { Sparkles } from 'lucide-react';
 // Step Components
 import StepWelcome from './components/StepWelcome';
 import StepUpload from './components/StepUpload';
-import StepManualEntry from './components/StepManualEntry'; // NEW IMPORT
+import StepManualEntry from './components/StepManualEntry';
 import StepJD from './components/StepJD';
 import StepLoading from './components/StepLoading';
 import StepSuccess from './components/StepSuccess';
+
+const APP_VERSION = import.meta.env.VITE_APP_VERSION || '0.0.1-dev';
 
 function App() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -123,7 +125,7 @@ function App() {
             <Sparkles className="text-blue-500 h-8 w-8 sm:h-12 sm:w-12 fill-blue-500/10" />
             Tailorly<span className="text-blue-500 underline decoration-blue-200 underline-offset-8">AI</span>
             <span className="hidden sm:inline-block text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-md ml-2 font-bold uppercase tracking-widest align-middle">
-              v1.0
+              {APP_VERSION.startsWith('v') ? APP_VERSION : `v${APP_VERSION}`}
             </span>
           </h1>
           <p className="text-sm sm:text-lg text-blue-800/80 mt-4 font-medium max-w-md mx-auto leading-relaxed">
