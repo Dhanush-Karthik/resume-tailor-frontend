@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+body {
+  /* A beautiful soft blue gradient for the whole page */
+  background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  color: #1e293b; 
+}
