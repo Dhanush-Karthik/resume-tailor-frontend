@@ -2,14 +2,17 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 
+// Step Components
 import StepWelcome from './components/StepWelcome';
 import StepUpload from './components/StepUpload';
+import StepManualEntry from './components/StepManualEntry'; // NEW IMPORT
 import StepJD from './components/StepJD';
 import StepLoading from './components/StepLoading';
 import StepSuccess from './components/StepSuccess';
 
 function App() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [flowType, setFlowType] = useState('pdf'); // NEW: Tracks user choice ('pdf' or 'manual')
   const [resumeFile, setResumeFile] = useState(null);
   const [jdUrl, setJdUrl] = useState('');
   const [downloadUrl, setDownloadUrl] = useState(null);
@@ -31,7 +34,7 @@ function App() {
   const handleBack = () => setCurrentStep((prev) => prev - 1);
 
   const handleTailorResume = async () => {
-    setCurrentStep(4);
+    setCurrentStep(4); // Move to Loading step
     setError(null);
 
     const formData = new FormData();
@@ -55,23 +58,54 @@ function App() {
       const url = window.URL.createObjectURL(blob);
       setDownloadUrl(url);
       
-      setCurrentStep(5);
+      setCurrentStep(5); // Move to Success step
 
     } catch (err) {
       console.error('API Error:', err);
       setError(err.message);
-      setCurrentStep(3);
+      setCurrentStep(3); // Go back to JD step to show error
     }
   };
 
   const renderStep = () => {
     switch (currentStep) {
-      case 1: return <StepWelcome onNext={handleNext} />;
-      case 2: return <StepUpload onNext={handleNext} onBack={handleBack} setFile={setResumeFile} file={resumeFile} />;
-      case 3: return <StepJD onBack={handleBack} jdUrl={jdUrl} setJdUrl={setJdUrl} onSubmit={handleTailorResume} error={error} />;
-      case 4: return <StepLoading />;
-      case 5: return <StepSuccess downloadUrl={downloadUrl} onRestart={() => { setCurrentStep(1); setResumeFile(null); setJdUrl(''); setDownloadUrl(null); }} />;
-      default: return <StepWelcome onNext={handleNext} />;
+      case 1: 
+        return (
+          <StepWelcome 
+            onNextPdf={() => { setFlowType('pdf'); setCurrentStep(2); }} 
+            onNextManual={() => { setFlowType('manual'); setCurrentStep(2); }} 
+          />
+        );
+      case 2: 
+        return flowType === 'pdf' ? (
+          <StepUpload onNext={handleNext} onBack={handleBack} setFile={setResumeFile} file={resumeFile} />
+        ) : (
+          <StepManualEntry onNext={handleNext} onBack={handleBack} setFile={setResumeFile} />
+        );
+      case 3: 
+        return <StepJD onBack={handleBack} jdUrl={jdUrl} setJdUrl={setJdUrl} onSubmit={handleTailorResume} error={error} />;
+      case 4: 
+        return <StepLoading />;
+      case 5: 
+        return (
+          <StepSuccess 
+            downloadUrl={downloadUrl} 
+            onRestart={() => { 
+              setCurrentStep(1); 
+              setResumeFile(null); 
+              setJdUrl(''); 
+              setDownloadUrl(null); 
+              setFlowType('pdf'); 
+            }} 
+          />
+        );
+      default: 
+        return (
+          <StepWelcome 
+            onNextPdf={() => { setFlowType('pdf'); setCurrentStep(2); }} 
+            onNextManual={() => { setFlowType('manual'); setCurrentStep(2); }} 
+          />
+        );
     }
   };
 
@@ -98,7 +132,7 @@ function App() {
         </motion.div>
       </div>
 
-      {/* Main Card Container - Now uses flex-col to grow naturally */}
+      {/* Main Card Container */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
