@@ -22,17 +22,11 @@ jobs:
         with:
           node-version: 20
 
-      # 1. BUILD STEP
       - name: Install & Build
         run: |
           npm install
           npm run build
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-          # Passing the input version to the build environment
-          VITE_APP_VERSION: ${{ github.event.inputs.version }}
 
-      # 2. TAGGING STEP
       - name: Push Git Tag
         run: |
           git config user.name "github-actions"
@@ -42,13 +36,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # 3. DEPLOY STEP
-      # 3. DEPLOY STEP
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
         with:
           publish-dir: './dist'
           production-deploy: true
-          netlify-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          site-id: ${{ secrets.NETLIFY_SITE_ID }}
+          fails-without-credentials: true 
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
