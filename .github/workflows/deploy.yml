@@ -8,14 +8,22 @@ on:
         required: true
         default: '0.0.1'
 
+# UPDATE THIS SECTION:
 permissions:
   contents: write
+  id-token: write
+  actions: write
+  # This is the critical one for your specific error
+  workflows: write 
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Ensure you fetch all history so the tag can be applied correctly
+          fetch-depth: 0 
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -26,6 +34,9 @@ jobs:
         run: |
           npm install
           npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_APP_VERSION: ${{ github.event.inputs.version }}
 
       - name: Push Git Tag
         run: |
