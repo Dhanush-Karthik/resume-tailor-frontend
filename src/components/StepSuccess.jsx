@@ -64,11 +64,11 @@ export default function StepSuccess({ downloadUrl, onRestart }) {
         
         {/* Ghost Restart Button */}
         <button 
-          onClick={onRestart}
-          className="flex items-center justify-center px-8 py-3.5 text-blue-600 hover:text-blue-800 hover:bg-blue-50 font-bold rounded-2xl transition-all duration-300 w-full mt-2"
+        onClick={onRestart}
+        className="flex items-center justify-center px-8 py-3.5 text-blue-600 hover:text-blue-800 hover:bg-blue-50 font-bold rounded-2xl transition-all duration-300 w-full mt-2"
         >
-          <RefreshCw size={18} className="mr-2" /> 
-          Tailor Another Job
+        <RefreshCw size={18} className="mr-2" /> 
+        Tailor Another Resume with Tailorly
         </button>
       </motion.div>
 

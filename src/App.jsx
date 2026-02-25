@@ -83,14 +83,17 @@ function App() {
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-30 animate-pulse"></div>
 
       {/* App Header */}
-      <div className="mb-10 text-center relative z-10">
+      <div className="mb-6 sm:mb-10 text-center relative z-10 px-4">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
-          <h1 className="text-5xl font-extrabold text-blue-950 tracking-tight flex items-center justify-center gap-3">
-            <Sparkles className="text-blue-500 h-10 w-10 fill-blue-500/20" />
-            AI Resume <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">Tailor</span>
+          <h1 className="text-4xl sm:text-6xl font-black text-blue-950 tracking-tighter flex items-center justify-center gap-2">
+            <Sparkles className="text-blue-500 h-8 w-8 sm:h-12 sm:w-12 fill-blue-500/10" />
+            Tailorly<span className="text-blue-500 underline decoration-blue-200 underline-offset-8">AI</span>
+            <span className="hidden sm:inline-block text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-md ml-2 font-bold uppercase tracking-widest align-middle">
+              v1.0
+            </span>
           </h1>
-          <p className="text-lg text-blue-800/80 mt-3 font-medium max-w-md mx-auto leading-relaxed">
-            Beat the ATS with a perfectly aligned resume, crafted in seconds.
+          <p className="text-sm sm:text-lg text-blue-800/80 mt-4 font-medium max-w-md mx-auto leading-relaxed">
+            Synchronize your experience with your dream role at <span className="text-blue-600 font-bold italic">lightning speed.</span>
           </p>
         </motion.div>
       </div>

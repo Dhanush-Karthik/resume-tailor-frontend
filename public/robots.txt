@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tailorlyai.netlify.app/sitemap.xml
